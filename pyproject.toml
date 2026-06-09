@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "soko-mcp"
+version = "0.1.0"
+description = "MCP server for Kenya commodity price intelligence — market prices, sell/hold decisions, regional comparison"
+authors = [{name = "Gabriel Mahia", email = "contact@aikungfu.dev"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["mcp", "commodity", "kenya", "africa", "agriculture", "markets", "soko", "farmers"]
+dependencies = ["fastmcp>=2.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/gabrielmahia/soko-mcp"
+
+[project.scripts]
+soko-mcp = "soko_mcp.main:main"
