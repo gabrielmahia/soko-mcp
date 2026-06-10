@@ -1,1 +1,27 @@
-{"name":"soko-mcp","version":"0.1.0","description":"Kenya commodity price intelligence MCP server","author":"Gabriel Mahia","license":"MIT","homepage":"https://github.com/gabrielmahia/soko-mcp","tags":["commodity","kenya","africa","agriculture","markets","soko"],"tools":5,"category":"Finance","transport":"stdio"}
+{
+  "name": "soko-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for East Africa commodity price intelligence and market signals. 5 tools.",
+  "author": "Gabriel Mahia",
+  "license": "MIT",
+  "homepage": "https://github.com/gabrielmahia/soko-mcp",
+  "tags": [
+    "agriculture",
+    "kenya",
+    "africa",
+    "markets",
+    "prices",
+    "soko"
+  ],
+  "tools": 6,
+  "category": "Agriculture",
+  "transport": "stdio",
+  "dockerfile": {
+    "build_steps": [
+      "pip install soko-mcp"
+    ],
+    "cmd": [
+      "soko-mcp"
+    ]
+  }
+}
