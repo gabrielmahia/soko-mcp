@@ -1,4 +1,5 @@
 {
+  "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "soko-mcp",
   "version": "0.1.0",
   "description": "MCP server for East Africa commodity price intelligence and market signals. 5 tools.",
