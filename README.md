@@ -1,5 +1,8 @@
 # 📊 soko-mcp — Kenya Commodity Price Intelligence MCP Server
 
+[![soko-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp)
+
+
 **First commodity price intelligence MCP server for East Africa.**
 
 *Soko* = market in Swahili.
