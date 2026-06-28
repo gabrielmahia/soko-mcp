@@ -54,3 +54,21 @@ soko-mcp                   # starts on stdio
 
 ---
 *© 2026 Gabriel Mahia / AI Kung Fu LLC · MIT License*
+
+## Part of the East Africa Coordination Stack
+
+This MCP server is one of 32 tools in the Kenya coordination infrastructure.
+It connects to [`africa-coord-bus`](https://github.com/gabrielmahia/africa-coord-bus) — the coordination
+event bus that routes signals between domains automatically.
+
+When this server detects a threshold condition, the bus notifies:
+- `bima-mcp` — parametric insurance evaluation
+- `kilimo-mcp` — agricultural advisory
+- `afya-mcp` — health surveillance activation
+- `county-mcp` — county office alert
+
+```python
+pip install africa-coord-bus
+```
+
+All servers: [pypi.org/user/gmahia](https://pypi.org/user/gmahia/)
