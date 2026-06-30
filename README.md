@@ -4,7 +4,7 @@
 [![smithery badge](https://smithery.ai/badge/@gabrielmahia/soko-mcp)](https://smithery.ai/server/@gabrielmahia/soko-mcp)
 
 
-**First commodity price intelligence MCP server for East Africa.**
+A farmer deciding whether to sell or hold needs current prices across multiple markets simultaneously. That comparison exists nowhere as a single queryable source.
 
 *Soko* = market in Swahili.
 
