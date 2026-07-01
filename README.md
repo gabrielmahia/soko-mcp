@@ -4,6 +4,14 @@
 [![smithery badge](https://smithery.ai/badge/@gabrielmahia/soko-mcp)](https://smithery.ai/server/@gabrielmahia/soko-mcp)
 
 
+---
+**Compatible with `claude-sonnet-5`** (released 2026-06-30) — Anthropic's most agentic
+Sonnet yet. Runs multi-step tool chains end-to-end without stopping short.
+Install: `pip install soko-mcp` · Use with any MCP client.
+
+---
+
+
 A farmer deciding whether to sell or hold needs current prices across multiple markets simultaneously. That comparison exists nowhere as a single queryable source.
 
 *Soko* = market in Swahili.
