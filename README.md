@@ -1,4 +1,5 @@
 # 📊 soko-mcp — Kenya Commodity Price Intelligence MCP Server
+<!-- mcp-name: io.github.gabrielmahia/soko-mcp -->
 
 [![soko-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp)
 [![smithery badge](https://smithery.ai/badge/@gabrielmahia/soko-mcp)](https://smithery.ai/server/@gabrielmahia/soko-mcp)
