@@ -1,8 +1,8 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "soko-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for East Africa commodity price intelligence and market signals. 5 tools.",
+  "version": "0.1.4",
+  "description": "MCP server for Africa commodity price intelligence and market signals",
   "author": "Gabriel Mahia",
   "license": "MIT",
   "homepage": "https://github.com/gabrielmahia/soko-mcp",
@@ -14,7 +14,28 @@
     "prices",
     "soko"
   ],
-  "tools": 6,
+  "tools": [
+    {
+      "name": "commodity_price_query",
+      "description": "Query current commodity prices at Kenya markets. Western parallel: CME Group spot price query, USDA Agricultural Marketing Service. DEMO prices — verify at eagc.org or county market boards."
+    },
+    {
+      "name": "regional_price_comparison",
+      "description": "Compare commodity prices across all Kenya markets to find the best price. Western parallel: CME regional basis reports, DTN ProphetX. This is the 'should I take my maize to Nairobi or sell locally?' tool. DEMO prices."
+    },
+    {
+      "name": "price_trend_analysis",
+      "description": "Analyse price trends for a commodity to inform sell/hold timing. Western parallel: CME seasonal charts, DTN market commentary. DEMO historical simulation."
+    },
+    {
+      "name": "sell_hold_decision",
+      "description": "Give a sell/hold recommendation for a commodity based on price trends. Western parallel: CME basis trading decision tools, grain elevator advisory. This is the 'what should I do with my harvest today?' AI advisor. DEMO model — always verify prices before acting."
+    },
+    {
+      "name": "market_overview",
+      "description": "Query commodity prices for multiple markets and commodities in one call. Useful for traders comparing portfolios across regions. DEMO data."
+    }
+  ],
   "category": "Agriculture",
   "transport": "stdio",
   "dockerfile": {
@@ -38,5 +59,8 @@
     "mcp",
     "useful-rails",
     "ai-agents"
+  ],
+  "maintainers": [
+    "gabrielmahia"
   ]
 }
