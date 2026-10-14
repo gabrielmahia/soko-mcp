@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # soko-mcp — Commodity Price Intelligence MCP Server
 # © 2026 Gabriel Mahia / AI Kung Fu LLC — MIT License
 #
@@ -14,10 +13,13 @@
 # =============================================================================
 
 from __future__ import annotations
+
 import datetime
 import random
 from typing import Annotated
+
 from fastmcp import FastMCP
+from pydantic import Field
 
 mcp = FastMCP(
     name="soko-mcp",
@@ -71,9 +73,7 @@ def _price(commodity, market):
 
 @mcp.tool(
     description=(
-        "Query current commodity prices at Kenya markets. "
-        "Western parallel: CME Group spot price query, USDA Agricultural Marketing Service. "
-        "DEMO prices — verify at eagc.org or county market boards."
+        "Indicative price of a commodity in a Kenyan market (nairobi, nakuru, eldoret, kisumu or mombasa). Use when a farmer or trader asks what something sells for. Prices come from a SYNTHETIC demo dataset, not market observations. An unknown commodity or market returns status NOT_FOUND with the markets that have data, never a guess. Returns status, the price details and a note to verify at eagc.org or a county market board. Read-only."
     ),
     annotations={"readOnlyHint": True},
 )
@@ -108,10 +108,7 @@ def commodity_price_query(
 
 @mcp.tool(
     description=(
-        "Compare commodity prices across all Kenya markets to find the best price. "
-        "Western parallel: CME regional basis reports, DTN ProphetX. "
-        "This is the 'should I take my maize to Nairobi or sell locally?' tool. "
-        "DEMO prices."
+        "Compare a commodity's indicative price across Kenyan markets relative to the farmer's location. Use when someone asks where to sell for the best price. Based on SYNTHETIC demo data; an unknown commodity returns NOT_FOUND. Returns status and the regional comparison. Transport costs and quality are not modelled: verify prices before travelling. Read-only."
     ),
     annotations={"readOnlyHint": True},
 )
@@ -158,9 +155,7 @@ def regional_price_comparison(
 
 @mcp.tool(
     description=(
-        "Analyse price trends for a commodity to inform sell/hold timing. "
-        "Western parallel: CME seasonal charts, DTN market commentary. "
-        "DEMO historical simulation."
+        "Seasonal price trend (rising, falling or stable) for a commodity in a market over the next 1 to 6 months. Use when someone asks whether prices are likely to go up or down. This is a simple seasonal model on SYNTHETIC data, not a forecast: real prices depend on weather, exports, policy and currency. An unknown commodity or market returns NOT_FOUND. Returns the trend, its driver, a warning and the source. Read-only."
     ),
     annotations={"readOnlyHint": True},
 )
@@ -221,10 +216,7 @@ def price_trend_analysis(
 
 @mcp.tool(
     description=(
-        "Give a sell/hold recommendation for a commodity based on price trends. "
-        "Western parallel: CME basis trading decision tools, grain elevator advisory. "
-        "This is the 'what should I do with my harvest today?' AI advisor. "
-        "DEMO model — always verify prices before acting."
+        "Compare selling now with storing a commodity for up to several months, using seasonal averages, the quantity, storage cost per month and months you can store. Use when a farmer asks whether to sell or hold. A DEMO model on SYNTHETIC seasonal averages: not advice, and real decisions need actual prices, storage quality and buyer contracts. An unknown commodity or market returns NOT_FOUND. Returns the current value, a recommendation with rationale, the future price scenarios and where to verify prices. Read-only."
     ),
     annotations={"readOnlyHint": True},
 )
@@ -241,7 +233,6 @@ def sell_hold_decision(
 
     unit = _BASE_PRICES.get(commodity.lower(), {}).get("unit", "unit")
     total_current_value = current * quantity_bags
-    storage_total = storage_cost_per_month_kes * months_can_store
 
     # Project future prices
     future_prices = []
@@ -286,9 +277,7 @@ def sell_hold_decision(
 
 @mcp.tool(
     description=(
-        "Query commodity prices for multiple markets and commodities in one call. "
-        "Useful for traders comparing portfolios across regions. "
-        "DEMO data."
+        "Indicative prices for several commodities in one market, with a seasonal context note. Use when someone wants a snapshot of a market. commodities is a comma-separated list such as maize,beans,potatoes; any not in the dataset are listed in commodities_not_found. Returns status, market, date, season context, the prices and the not-found list. Prices are SYNTHETIC demo data: verify at eagc.org or county market boards. Read-only."
     ),
     annotations={"readOnlyHint": True},
 )

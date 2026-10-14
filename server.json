@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
   "name": "io.github.gabrielmahia/soko-mcp",
-  "description": "\ud83d\udcca soko-mcp \u2014 Kenya Commodity Price Intelligence MCP Server",
+  "description": "📊 soko-mcp — Kenya Commodity Price Intelligence MCP Server",
   "repository": {
     "url": "https://github.com/gabrielmahia/soko-mcp",
     "source": "github"
   },
-  "version": "0.1.4",
+  "version": "0.1.5",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "soko-mcp",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "transport": {
         "type": "stdio"
       }
