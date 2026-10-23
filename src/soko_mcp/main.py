@@ -16,10 +16,18 @@ from __future__ import annotations
 
 import datetime
 import random
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 from typing import Annotated
 
 from fastmcp import FastMCP
 from pydantic import Field
+
+try:
+    _VERSION = _pkg_version("soko-mcp")
+except PackageNotFoundError:  # a source tree that was never installed
+    _VERSION = "0+unknown"
+
 
 mcp = FastMCP(
     name="soko-mcp",
@@ -30,7 +38,7 @@ mcp = FastMCP(
     IMPORTANT: All prices are DEMO/synthetic for educational purposes.
     Real prices: EAGC (eagc.org), KALRO (kalro.org), county market boards.
     Not affiliated with any commodity exchange.
-    """,
+    """, version=_VERSION,
 )
 
 TODAY = datetime.date.today()
