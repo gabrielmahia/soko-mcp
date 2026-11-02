@@ -4,18 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "soko-mcp"
-version = "0.1.8"
+version = "0.1.9"
 description = "MCP server for Africa commodity price intelligence and market signals"
 authors = [{name = "Gabriel Mahia", email = "contact@aikungfu.dev"}]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 keywords = ["mcp", "commodity", "kenya", "africa", "markets", "prices", "agriculture", "soko"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
