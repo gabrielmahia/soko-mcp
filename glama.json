@@ -1,7 +1,7 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "soko-mcp",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "MCP server for Africa commodity price intelligence and market signals",
   "author": "Gabriel Mahia",
   "license": "MIT",
@@ -34,6 +34,16 @@
     {
       "name": "market_overview",
       "description": "Indicative prices for several commodities in one market, with a seasonal context note. Use when someone wants a snapshot of a market. commodities is a comma-separated list such as maize,beans,potatoes; any not in the dataset are listed in commodities_not_found. Returns status, market, date, season context, the prices and the not-found list. Prices are SYNTHETIC demo data: verify at eagc.org or county market boards. Read-only."
+    },
+    {
+      "name": "food_market_prices",
+      "description": "Get recent food prices in Kenyan markets for a commodity (for example maize, beans, rice, sorghum, milk or sugar), from the World Food Programme's market monitoring, served by the free Humanitarian Data Exchange API (HDX HAPI). Use when someone is deciding when or where to buy or sell, checking whether a price is fair, or tracking food costs in a county. Returns the latest price per market and unit with its date, the source, its licence and the retrieval time; on a network or service failure it returns an error instead of prices. Read-only; contacts an external service.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
     }
   ],
   "category": "Agriculture",

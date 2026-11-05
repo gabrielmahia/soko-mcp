@@ -32,6 +32,7 @@ In Kenya, most smallholder farmers receive the price the trader offers, with no 
 | `price_trend_analysis` | 6-month history + 3-month forecast with seasonal model |
 | `sell_hold_decision` | Optimal sell/hold timing given storage costs and price trend |
 | `market_overview` | Multi-commodity price snapshot for a market |
+| `food_market_prices` | Latest WFP market prices in Kenya for a commodity, via HDX HAPI |
 
 ## Quick Start
 
@@ -59,6 +60,12 @@ soko-mcp                   # starts on stdio
 
 ---
 *© 2026 Gabriel Mahia / AI Kung Fu LLC · MIT License*
+
+## Live data
+
+- `food_market_prices`: the latest WFP-monitored market prices in Kenya for a commodity, optionally by county, via [HDX HAPI](https://hapi.humdata.org) (WFP data CC BY-IGO).
+
+Each live answer names its source, attribution and retrieval time; if a service does not answer, the tool returns an error instead of a number. The other tools are unchanged.
 
 ## Part of the East Africa Coordination Stack
 

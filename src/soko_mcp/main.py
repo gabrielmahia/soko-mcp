@@ -14,8 +14,16 @@
 
 from __future__ import annotations
 
+import base64
 import datetime
+import json
 import random
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import UTC as _UTC
+from datetime import datetime as _dt
+from datetime import timedelta as _td
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _pkg_version
 from typing import Annotated
@@ -316,6 +324,57 @@ def market_overview(
         "note": "DEMO — Synthetic prices. Verify at eagc.org or county market boards.",
         "source": "soko-mcp DEMO dataset.",
     }
+
+
+
+# ── Live data (free public services) ─────────────────────────────────
+# Live tools change nothing anywhere, but they contact an outside service, and clients should know that.
+LIVE_READ_ONLY = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": True}
+LIVE_TOOLS = {"food_market_prices"}
+_LIVE_UA = {"User-Agent": "soko-mcp (https://github.com/gabrielmahia/soko-mcp)", "Accept": "application/json"}
+_LIVE_ERRORS = (urllib.error.URLError, TimeoutError, ValueError, KeyError, TypeError, IndexError)
+
+
+def _live_get(url: str, params: dict | None = None, timeout: float = 20.0):
+    if params:
+        url = url + "?" + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url, headers=_LIVE_UA)
+    with urllib.request.urlopen(req, timeout=timeout) as r:  # fixed https endpoints only
+        return json.loads(r.read().decode("utf-8"))
+
+
+def _live_meta(source: str, attribution: str) -> dict:
+    return {"source": source, "attribution": attribution, "retrieved_at": _dt.now(_UTC).isoformat(timespec="seconds")}
+
+@mcp.tool(name="food_market_prices", annotations=LIVE_READ_ONLY, description="Get recent food prices in Kenyan markets for a commodity (for example maize, beans, rice, sorghum, milk or sugar), from the World Food Programme's market monitoring, served by the free Humanitarian Data Exchange API (HDX HAPI). Use when someone is deciding when or where to buy or sell, checking whether a price is fair, or tracking food costs in a county. Returns the latest price per market and unit with its date, the source, its licence and the retrieval time; on a network or service failure it returns an error instead of prices. Read-only; contacts an external service.")
+def food_market_prices(commodity: Annotated[str, Field(description="Commodity name or part of it, for example maize, beans, rice, sorghum, milk or sugar.")],
+                       county: Annotated[str | None, Field(description="Optional county name to filter on, for example Turkana or Marsabit (WFP monitors mainly arid and semi-arid counties).")] = None,
+                       months: Annotated[int, Field(description="How far back to look for the latest prices, in months, between 1 and 60.")] = 12) -> dict:
+    meta = _live_meta("LIVE — WFP market monitor via HDX HAPI (hapi.humdata.org)", "World Food Programme price data via the Humanitarian Data Exchange (HDX HAPI); WFP data licensed CC BY-IGO.")
+    name = (commodity or "").strip()
+    if not 1 <= len(name) <= 60:
+        return {"error": "commodity must be between 1 and 60 characters", **meta}
+    if not 1 <= months <= 60:
+        return {"error": "months must be between 1 and 60", **meta}
+    since = (_dt.now(_UTC) - _td(days=31 * months)).date().isoformat()
+    params = {"location_code": "KEN", "commodity_name": name, "reference_period_start_min": since, "limit": 1000, "output_format": "json",
+              "app_identifier": base64.b64encode(b"soko-mcp:contact@aikungfu.dev").decode()}
+    if county:
+        params["admin1_name"] = county.strip()
+    try:
+        data = _live_get("https://hapi.humdata.org/api/v2/food-security-nutrition-poverty/food-prices-market-monitor", params)["data"]
+    except _LIVE_ERRORS as e:
+        return {"error": f"HDX HAPI did not return usable prices ({type(e).__name__}); no prices are given without it. Try again later.", **meta}
+    latest = {}
+    for row in data:
+        key = (row.get("market_name"), row.get("commodity_name"), row.get("unit"), row.get("price_type"))
+        if key not in latest or row["reference_period_start"] > latest[key]["reference_period_start"]:
+            latest[key] = row
+    out = sorted(latest.values(), key=lambda r: r["reference_period_start"], reverse=True)[:25]
+    prices = [{"market": r.get("market_name"), "county": r.get("admin1_name"), "commodity": r.get("commodity_name"), "unit": r.get("unit"), "price": r.get("price"),
+               "currency": r.get("currency_code"), "price_type": r.get("price_type"), "date": (r.get("reference_period_start") or "")[:10]} for r in out]
+    return {"commodity": name, "county": county, "since": since, "prices": prices, "count": len(prices),
+            "note": "WFP monitors selected markets, mostly in arid and semi-arid counties; an empty list means no observation in that window, not that the item is unavailable.", **meta}
 
 
 def main():
