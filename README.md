@@ -2,12 +2,8 @@
 <!-- mcp-name: io.github.gabrielmahia/soko-mcp -->
 
 [![soko-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/soko-mcp)
-[![smithery badge](https://smithery.ai/badge/@gabrielmahia/soko-mcp)](https://smithery.ai/server/@gabrielmahia/soko-mcp)
-
 
 Install: `pip install soko-mcp` · Use with any MCP client.
-
-
 
 A farmer deciding whether to sell or hold needs current prices across multiple markets simultaneously. That comparison exists nowhere as a single queryable source.
 
