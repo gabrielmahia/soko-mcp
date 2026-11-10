@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 type: software
 title: "soko-mcp"
 abstract: "MCP server for Africa commodity price intelligence and market signals"
-version: "0.1.11"
+version: "0.1.12"
 authors:
   - family-names: "Mahia"
     given-names: "Gabriel"
