@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "soko-mcp"
-version = "0.1.11"
+version = "0.1.12"
 description = "MCP server for Africa commodity price intelligence and market signals"
 authors = [{name = "Gabriel Mahia", email = "contact@aikungfu.dev"}]
 license = "MIT"
@@ -23,7 +23,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Office/Business :: Financial",
 ]
-dependencies = ["fastmcp>=2.0.0"]
+dependencies = ["fastmcp>=4.1.4"]
 license-files = ["LICENSE"]
 
 [project.urls]
